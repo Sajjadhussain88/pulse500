@@ -81,7 +81,7 @@ async function getTrends(force = false) {
     title: t.title, description: t.description || `A topic currently appearing in Google Trends for ${t.regions.join(', ')}. Open the source to explore more context.`,
     category: categoryFor(t.title, t.description), score: scoreFor(t.totalTraffic, t.regions.length),
     change: t.regions.length > 1 ? `+${Math.min(18, (t.regions.length - 1) * 3 + 2)}` : 'New',
-    source: 'Google Trends', regions: t.regions, url: t.link || 'https://trends.google.com/trends/',
+    source: 'Google Trends', regions: t.regions, url: `https://trends.google.com/trends/explore?q=${encodeURIComponent(t.title)}`,
     traffic: t.traffic, updatedAt: new Date().toISOString(), demo: false
   })).sort((a,b) => b.score - a.score).slice(0, 500).map((t, i) => ({ ...t, rank: i + 1 }));
   cache = { at: Date.now(), trends, errors };
